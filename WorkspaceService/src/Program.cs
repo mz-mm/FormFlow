@@ -15,8 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDataba
 builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddCors(ops =>
-                    ops.AddPolicy("AllowAnyOrigins", builder => builder.AllowAnyOrigin()));
+
 
 var app = builder.Build();
 
@@ -26,8 +25,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAnyOrigins");
-app.UseHttpsRedirection();
 app.MapControllers();
 app.UseRouting();
 
