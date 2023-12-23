@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workspace-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workspaceservice
+  template:
+    metadata:
+      labels:
+        app: workspaceservice
+    spec:
+      containers:
+      - name: workspaceservice
+        image: mzdevi/workspaceservice:latest
