@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace FormService.Infrastructure.Context.Entities;
 
 public class FormQuestion : BaseEntity

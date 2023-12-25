@@ -8,18 +8,27 @@ public class FormsConfig : IEntityTypeConfiguration<Form>
 {
     public void Configure(EntityTypeBuilder<Form> builder)
     {
-        builder.Property(x => x.EventManagerId)
-            .IsRequired();
-
-        builder.Property(x => x.IsSubmissionOpen)
-            .HasDefaultValue(true);
-        
-        builder.Property(x => x.FormName)
+        builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(30);
 
-        builder.Property(x => x.FormDescription)
+        builder.Property(x => x.Description)
             .HasMaxLength(120);
+        
+        builder.Property(x => x.IsSubmissionOpen)
+            .HasDefaultValue(true);
+
+        builder.Property(x => x.FormSubmissionLimit)
+            .HasDefaultValue(10000);
+
+        builder.Property(x => x.StartDateTime)
+            .HasDefaultValue(DateTime.UtcNow);
+        
+        builder.Property(x => x.CreatedAt)
+            .HasDefaultValue(DateTime.UtcNow);
+        
+        builder.Property(x => x.EventId)
+            .IsRequired();
 
         builder.HasMany(x => x.FormQuestions)
             .WithOne(x => x.Form)

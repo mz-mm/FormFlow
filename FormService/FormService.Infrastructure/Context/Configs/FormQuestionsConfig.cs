@@ -14,6 +14,9 @@ public class FormQuestionsConfig : IEntityTypeConfiguration<FormQuestion>
 
         builder.Property(x => x.QuestionType)
             .IsRequired();
+
+        builder.Property(x => x.CreatedAt)
+            .HasDefaultValue(DateTime.UtcNow);
         
         builder.HasOne(x => x.Form)
             .WithMany(x => x.FormQuestions)
