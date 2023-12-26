@@ -14,25 +14,26 @@ public class FormsConfig : IEntityTypeConfiguration<Form>
 
         builder.Property(x => x.Description)
             .HasMaxLength(120);
-        
+
         builder.Property(x => x.IsSubmissionOpen)
-            .HasDefaultValue(true);
+            .HasDefaultValue(1);
 
         builder.Property(x => x.FormSubmissionLimit)
             .HasDefaultValue(10000);
 
         builder.Property(x => x.StartDateTime)
             .HasDefaultValue(DateTime.UtcNow);
-        
+
         builder.Property(x => x.CreatedAt)
             .HasDefaultValue(DateTime.UtcNow);
-        
+
         builder.Property(x => x.EventId)
             .IsRequired();
 
         builder.HasMany(x => x.FormQuestions)
             .WithOne(x => x.Form)
             .HasForeignKey(x => x.FormId)
-            .OnDelete(DeleteBehavior.Cascade);;
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

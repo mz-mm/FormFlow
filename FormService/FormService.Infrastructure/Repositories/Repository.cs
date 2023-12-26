@@ -8,24 +8,24 @@ namespace FormService.Infrastructure.Repositories;
 public class Repository<T> : IRepository<T> where T: BaseEntity
 {
     private readonly AppDbContext _context;
-    private readonly DbSet<T> _entities;
+    protected readonly DbSet<T> Entities;
 
     protected Repository(AppDbContext context)
     {
         _context = context;
-        _entities = context.Set<T>();
+        Entities = context.Set<T>();
     }
 
-    public virtual async Task<IEnumerable<T>> GetAllAsync() => await _entities.AsNoTracking().ToListAsync();
+    public virtual async Task<IEnumerable<T>> GetAllAsync() => await Entities.AsNoTracking().ToListAsync();
 
-    public virtual async Task<T?> GetByIdAsync(int? id) =>
-        await _entities.AsNoTracking().SingleOrDefaultAsync(s => s.Id == id);
+    public virtual async Task<T?> GetByIdAsync(int id) =>
+        await Entities.AsNoTracking().SingleOrDefaultAsync(s => s.Id == id);
 
     public virtual async Task<bool> InsertAsync(T entity)
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        await _entities.AddAsync(entity);
+        await Entities.AddAsync(entity);
         await _context.SaveChangesAsync();
 
         return true;
@@ -35,7 +35,7 @@ public class Repository<T> : IRepository<T> where T: BaseEntity
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        _entities.Update(entity);
+        Entities.Update(entity);
         await _context.SaveChangesAsync();
 
         return true;
@@ -45,7 +45,7 @@ public class Repository<T> : IRepository<T> where T: BaseEntity
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        _entities.Remove(entity);
+        Entities.Remove(entity);
         await _context.SaveChangesAsync();
         return true;
     } 

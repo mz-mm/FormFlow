@@ -4,4 +4,5 @@ namespace FormService.Infrastructure.Interfaces;
 
 public interface IFormQuestionsRepository : IRepository<FormQuestion>
 {
+    public Task<IEnumerable<FormQuestion>> GetAllAsync(int formId);
 }

@@ -1,7 +1,8 @@
-namespace FormService.Infrastructure.Context.Entities;
+namespace FormService.Domain.Dtos.FormDtos;
 
-public class Form : BaseEntity
+public class GetFormDto
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public bool IsSubmissionOpen { get; set; }
@@ -9,7 +10,5 @@ public class Form : BaseEntity
     public DateTime StartDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
     public DateTime CreatedAt { get; set; }
-    public int EventId { get; set; }
-    
-    public List<FormQuestion> FormQuestions { get; set; } 
+    public int EventId { get; set; } 
 }
