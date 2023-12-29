@@ -16,7 +16,7 @@ public class FormsConfig : IEntityTypeConfiguration<Form>
             .HasMaxLength(120);
 
         builder.Property(x => x.IsSubmissionOpen)
-            .HasDefaultValue(1);
+            .HasDefaultValue(true);
 
         builder.Property(x => x.FormSubmissionLimit)
             .HasDefaultValue(10000);
@@ -27,7 +27,7 @@ public class FormsConfig : IEntityTypeConfiguration<Form>
         builder.Property(x => x.CreatedAt)
             .HasDefaultValue(DateTime.UtcNow);
 
-        builder.Property(x => x.EventId)
+        builder.Property(x => x.WorkspaceId)
             .IsRequired();
 
         builder.HasMany(x => x.FormQuestions)

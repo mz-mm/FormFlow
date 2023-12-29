@@ -33,7 +33,7 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 26, 12, 50, 25, 369, DateTimeKind.Utc).AddTicks(2630));
+                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1640));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -42,9 +42,6 @@ namespace FormService.Infrastructure.Migrations
 
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("FormSubmissionLimit")
                         .ValueGeneratedOnAdd()
@@ -64,7 +61,10 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("StartDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 26, 12, 50, 25, 369, DateTimeKind.Utc).AddTicks(2480));
+                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1500));
+
+                    b.Property<int>("WorkspaceId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -82,7 +82,7 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 26, 12, 50, 25, 369, DateTimeKind.Utc).AddTicks(1050));
+                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(220));
 
                     b.Property<int>("FormId")
                         .HasColumnType("integer");
