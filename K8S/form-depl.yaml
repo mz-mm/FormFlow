@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: workspace-depl
+  name: form-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: workspaceservice
+      app: formservice
   template:
     metadata:
       labels:
-        app: workspaceservice
+        app: formservice
     spec:
       containers:
-      - name: workspaceservice
-        image: mzdevi/workspaceservice:latest
+      - name: formservice
+        image: mzdevi/formservice:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: workspace-clusterip-srv
+  name: form-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: workspaceservice 
+    app: formservice 
   ports:
-  - name: workspaceservice
+  - name: formservice
     protocol: TCP
     port: 80
     targetPort: 80
