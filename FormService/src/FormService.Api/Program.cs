@@ -20,7 +20,7 @@ builder.Services.AddScoped<IFormQuestionsRepository, FormQuestionRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:DefaultConnection"],
+    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING"),
         b => b.MigrationsAssembly("FormService.Infrastructure")));
 
 

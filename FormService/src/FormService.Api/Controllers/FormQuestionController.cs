@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FormService.Api.Controllers;
 
 [ApiController]
-[Route("api/form-question")]
+[Route("api/form/form-question")]
 public class FormQuestionController(IFormQuestionService service) : ControllerBase
 {
     [HttpGet("{formId:int}")]

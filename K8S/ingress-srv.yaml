@@ -17,3 +17,10 @@ spec:
                 name: workspace-clusterip-srv
                 port:
                   number: 80
+          - path: /api/form
+            pathType: Prefix
+            backend:
+              service:
+                name: form-clusterip-srv
+                port:
+                  number: 80

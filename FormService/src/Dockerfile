@@ -14,6 +14,10 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS publish
 WORKDIR /app
+
+ENV ASPNETCORE_HTTP_PORTS=80
+EXPOSE 80
+
 COPY --from=build /src/FormService.Api/out .
 
 ENTRYPOINT [ "dotnet", "FormService.Api.dll" ]

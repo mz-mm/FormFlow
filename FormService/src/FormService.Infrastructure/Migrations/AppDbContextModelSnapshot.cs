@@ -33,7 +33,7 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1640));
+                        .HasDefaultValue(new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(7510));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -61,7 +61,7 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("StartDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1500));
+                        .HasDefaultValue(new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(7370));
 
                     b.Property<int>("WorkspaceId")
                         .HasColumnType("integer");
@@ -82,7 +82,7 @@ namespace FormService.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(220));
+                        .HasDefaultValue(new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(5570));
 
                     b.Property<int>("FormId")
                         .HasColumnType("integer");

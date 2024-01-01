@@ -15,6 +15,12 @@ spec:
       containers:
       - name: formservice
         image: mzdevi/formservice:latest
+        env:
+        - name: CONNECTION_STRING
+          valueFrom: 
+            secretKeyRef:
+              name: connection-credentials
+              key: form-postgres-connection-string
 ---
 apiVersion: v1
 kind: Service

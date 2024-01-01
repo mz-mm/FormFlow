@@ -22,9 +22,9 @@ namespace FormService.Infrastructure.Migrations
                     Description = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
                     IsSubmissionOpen = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     FormSubmissionLimit = table.Column<int>(type: "integer", nullable: false, defaultValue: 10000),
-                    StartDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1500)),
+                    StartDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(7370)),
                     EndDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(1640)),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(7510)),
                     WorkspaceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -40,7 +40,7 @@ namespace FormService.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Question = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
                     QuestionType = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 29, 15, 44, 11, 974, DateTimeKind.Utc).AddTicks(220)),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2023, 12, 31, 14, 55, 50, 504, DateTimeKind.Utc).AddTicks(5570)),
                     FormId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
