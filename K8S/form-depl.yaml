@@ -19,8 +19,8 @@ spec:
         - name: CONNECTION_STRING
           valueFrom: 
             secretKeyRef:
-              name: connection-credentials
-              key: form-postgres-connection-string
+              name: form-credentials
+              key: CONNECTION_STRING
 ---
 apiVersion: v1
 kind: Service

@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgsql-depl
+  name: workspace-pgsql-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: workspace-postgres
   template:
     metadata:
       labels:
-        app: postgres
+        app: workspace-postgres
     spec:
       containers:
-        - name: postgres
+        - name: workspace-postgres
           image: postgres
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: forms_db
+              value: workspace_db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: workspace-credentials
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: workspace-credentials
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
@@ -36,18 +36,18 @@ spec:
       volumes:
       - name: pgsqldb
         persistentVolumeClaim:
-          claimName: pgsql-claim
+          claimName: workspace-pgsql-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pgsql-form-clusterip-srv
+  name: pgsql-workspace-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: postgres
+    app: workspace-postgres
   ports:
-  - name: postgres
+  - name: workspace-postgres
     protocol: TCP
     port: 5432
     targetPort: 5432
@@ -55,12 +55,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-loadbalancer
+  name: workspace-postgres-loadbalancer
 spec:
   type: LoadBalancer
   selector:
-    app: postgres
+    app: workspace-postgres
   ports:
   - protocol: TCP
-    port: 5432
+    port: 5433
     targetPort: 5432

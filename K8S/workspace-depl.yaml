@@ -15,6 +15,12 @@ spec:
       containers:
       - name: workspaceservice
         image: mzdevi/workspaceservice:latest
+        env:
+        - name: CONNECTION_STRING
+          valueFrom: 
+            secretKeyRef:
+              name: workspace-credentials
+              key: CONNECTION_STRING
 ---
 apiVersion: v1
 kind: Service

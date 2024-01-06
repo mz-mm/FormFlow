@@ -11,7 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMem"));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
 builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
