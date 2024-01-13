@@ -5,37 +5,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FormService.Infrastructure.Repositories;
 
-public class Repository<T> : IRepository<T> where T: BaseEntity
+public class Repository<T> : IRepository<T> where T : BaseEntity
 {
     private readonly AppDbContext _context;
-    protected readonly DbSet<T> Entities;
+    private readonly DbSet<T> _entities;
 
     protected Repository(AppDbContext context)
     {
         _context = context;
-        Entities = context.Set<T>();
+        _entities = context.Set<T>();
     }
 
-    public virtual async Task<IEnumerable<T>> GetAllAsync() => await Entities.AsNoTracking().ToListAsync();
+    public virtual async Task<IEnumerable<T>> GetAllAsync() =>
+        await _entities.AsNoTracking().ToListAsync();
 
     public virtual async Task<T?> GetByIdAsync(int id) =>
-        await Entities.AsNoTracking().SingleOrDefaultAsync(s => s.Id == id);
+        await _entities.AsNoTracking().SingleOrDefaultAsync(s => s.Id == id);
 
-    public virtual async Task<bool> InsertAsync(T entity)
+    public virtual async Task<T> InsertAsync(T entity)
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        await Entities.AddAsync(entity);
+        await _entities.AddAsync(entity);
         await _context.SaveChangesAsync();
 
-        return true;
+        return entity;
     }
 
     public virtual async Task<bool> UpdateAsync(T entity)
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        Entities.Update(entity);
+        _entities.Update(entity);
         await _context.SaveChangesAsync();
 
         return true;
@@ -45,8 +46,8 @@ public class Repository<T> : IRepository<T> where T: BaseEntity
     {
         ArgumentNullException.ThrowIfNull(entity);
 
-        Entities.Remove(entity);
+        _entities.Remove(entity);
         await _context.SaveChangesAsync();
         return true;
-    } 
+    }
 }

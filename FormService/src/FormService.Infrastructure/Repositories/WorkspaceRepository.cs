@@ -4,6 +4,6 @@ using FormService.Infrastructure.Interfaces;
 
 namespace FormService.Infrastructure.Repositories;
 
-public class FormRepository(AppDbContext context) : Repository<Form>(context), IFormRepository
+public class WorkspaceRepository(AppDbContext context) : Repository<Workspace>(context), IWorkspaceRepository
 {
 }

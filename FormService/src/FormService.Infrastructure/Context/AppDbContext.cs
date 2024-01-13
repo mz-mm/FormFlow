@@ -3,14 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FormService.Infrastructure.Context;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Form> Forms { get; set; } = null!;
     public DbSet<FormQuestion> FormQuestions { get; set; } = null!;
-
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
+    public DbSet<Workspace> Workspaces { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

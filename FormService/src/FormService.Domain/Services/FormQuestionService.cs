@@ -11,24 +11,30 @@ public class FormQuestionService(IMapper mapper, IFormQuestionsRepository formQu
 {
     public async Task<IEnumerable<GetFormQuestionDto>> GetAllFormQuestionsAsync(int formId)
     {
-        var formQuestions = await formQuestionsRepository.GetAllAsync(formId);
+        var formQuestions = (await formQuestionsRepository.GetAllAsync()).Where(fq => fq.FormId == formId);
         return mapper.Map<IEnumerable<GetFormQuestionDto>>(formQuestions);
     }
 
-    public async Task<bool> CreateFormQuestionAsync(CreateFormQuestionDto formQuestionDto)
+    public async Task<GetFormQuestionDto> CreateFormQuestionAsync(int formId, CreateFormQuestionDto formQuestionDto)
     {
-        var form = await formService.GetFormByIdAsync(formQuestionDto.FormId);
+        var form = await formService.GetFormByIdAsync(formId);
 
-        if (form is null) throw new NotFoundException($"Form with ID {formQuestionDto.FormId} not found");
+        if (form is null)
+            throw new NotFoundException($"Form with ID {formId} not found");
         
         var formQuestionEntity = mapper.Map<FormQuestion>(formQuestionDto);
         var result = await formQuestionsRepository.InsertAsync(formQuestionEntity);
 
-        return result;
+        return mapper.Map<GetFormQuestionDto>(formQuestionDto);
     }
 
-    public async Task<bool> UpdateFormQuestionAsync(CreateFormQuestionDto formQuestionDto)
+    public async Task<bool> UpdateFormQuestionAsync(int formId, CreateFormQuestionDto formQuestionDto)
     {
+        var form = await formService.GetFormByIdAsync(formId);
+        
+        if (form is null)
+            throw new NotFoundException($"Form with ID {formId} not found");
+        
         var formQuestionEntity = mapper.Map<FormQuestion>(formQuestionDto);
         var result = await formQuestionsRepository.UpdateAsync(formQuestionEntity);
 

@@ -5,8 +5,8 @@ namespace FormService.Domain.Interfaces;
 public interface IFormQuestionService
 {
     Task<IEnumerable<GetFormQuestionDto>> GetAllFormQuestionsAsync(int formId);
-    Task<bool> CreateFormQuestionAsync(CreateFormQuestionDto formQuestionDto);
-    Task<bool> UpdateFormQuestionAsync(CreateFormQuestionDto formQuestion);
+    Task<GetFormQuestionDto> CreateFormQuestionAsync(int formId, CreateFormQuestionDto formQuestionDto);
+    Task<bool> UpdateFormQuestionAsync(int formId, CreateFormQuestionDto formQuestion);
     Task<bool> DeleteFormQuestionAsync(int id); 
 
 }

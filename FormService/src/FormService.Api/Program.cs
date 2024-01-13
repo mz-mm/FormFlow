@@ -17,6 +17,9 @@ builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IFormQuestionService, FormQuestionService>();
 builder.Services.AddScoped<IFormQuestionsRepository, FormQuestionRepository>();
 
+builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
+builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AppDbContext>(options =>

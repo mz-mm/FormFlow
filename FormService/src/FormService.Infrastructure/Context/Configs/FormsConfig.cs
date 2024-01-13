@@ -27,13 +27,15 @@ public class FormsConfig : IEntityTypeConfiguration<Form>
         builder.Property(x => x.CreatedAt)
             .HasDefaultValue(DateTime.UtcNow);
 
-        builder.Property(x => x.WorkspaceId)
-            .IsRequired();
+        builder.HasOne(x => x.Workspace)
+            .WithMany(x => x.Forms)
+            .HasForeignKey(x => x.WorkspaceId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.FormQuestions)
             .WithOne(x => x.Form)
             .HasForeignKey(x => x.FormId)
-            .IsRequired()
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

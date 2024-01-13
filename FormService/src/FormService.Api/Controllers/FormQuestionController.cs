@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace FormService.Api.Controllers;
 
 [ApiController]
-[Route("api/form/form-question")]
+[Route("api/form/{formId:int}/form-question")]
 public class FormQuestionController(IFormQuestionService service) : ControllerBase
 {
-    [HttpGet("{formId:int}")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<GetFormQuestionDto>>> GetAllFormQuestions(int formId)
     {
         var result = await service.GetAllFormQuestionsAsync(formId);
@@ -19,19 +19,16 @@ public class FormQuestionController(IFormQuestionService service) : ControllerBa
     }
 
     [HttpPost]
-    public async Task<ActionResult<GetFormQuestionDto>> CreateFormQuestion(
-        [FromBody] CreateFormQuestionDto formQuestionDto)
+    public async Task<ActionResult<GetFormQuestionDto>> CreateFormQuestion(int formId, [FromBody] CreateFormQuestionDto formQuestionDto)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest("Model not valid");
 
-            var result = await service.CreateFormQuestionAsync(formQuestionDto);
+            await service.CreateFormQuestionAsync(formId, formQuestionDto);
 
-            if (result) return Ok("Form question created with success");
-
-            return BadRequest("Error creating form question");
+            return Ok("Form question created with success");
         }
         catch (NotFoundException ex)
         {
@@ -40,12 +37,12 @@ public class FormQuestionController(IFormQuestionService service) : ControllerBa
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateFormQuestion([FromBody] CreateFormQuestionDto formQuestionDto)
+    public async Task<ActionResult> UpdateFormQuestion(int formId, [FromBody] CreateFormQuestionDto formQuestionDto)
     {
         if (!ModelState.IsValid)
             return BadRequest("Model not valid");
 
-        var result = await service.UpdateFormQuestionAsync(formQuestionDto);
+        var result = await service.UpdateFormQuestionAsync(formId, formQuestionDto);
 
         if (result) return Ok("Form questions update with success");
 
@@ -57,8 +54,8 @@ public class FormQuestionController(IFormQuestionService service) : ControllerBa
     {
         var result = await service.DeleteFormQuestionAsync(id);
 
-        if (result) return Ok($"Form question with {id} deleted with success");
+        if (result) return Ok($"Form question with ID: {id} deleted with success");
 
-        return BadRequest($"Form question with {id} not remove");
+        return BadRequest($"Form question with ID: {id} could not be removed");
     }
 }
