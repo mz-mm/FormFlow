@@ -11,12 +11,9 @@ public class Workspace : BaseEntity
     public const int MAxWorkspaceDescription = 30;
     public const int MinWorkspaceDescription = 0;
     
-    [Column("NAME")]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
     
-    [Column("DESCRIPTION")]
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; }
     
-    [Column("CREATEDAT")]
     public DateTime CreatedAt { get; set; }
 }

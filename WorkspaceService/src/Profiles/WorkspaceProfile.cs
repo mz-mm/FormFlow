@@ -10,5 +10,6 @@ public class WorkspaceProfile : Profile
     {
         CreateMap<Workspace, GetWorkspaceDto>();
         CreateMap<CreateWorkspaceDto, Workspace>();
+        CreateMap<GetWorkspaceDto, PublishWorkspaceDto>();
     }
 }

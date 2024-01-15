@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using src.AsyncDataServices;
 using src.Context;
 using src.Repositories.Classes;
 using src.Repositories.Interfaces;
@@ -11,8 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+
 builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

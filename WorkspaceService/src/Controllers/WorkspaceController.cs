@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using src.AsyncDataServices;
 using src.Dtos;
 using src.Services.Interfaces;
 
@@ -7,7 +8,7 @@ namespace src.Controllers;
 
 [Route("api/workspace")]
 [ApiController]
-public class WorkspaceController(IWorkspaceService service, IMapper mapper) : ControllerBase
+public class WorkspaceController(IMessageBusClient messageBusClient, IWorkspaceService service, IMapper mapper) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetWorkspaceDto>>> GetAllWorkspaces()
@@ -37,6 +38,10 @@ public class WorkspaceController(IWorkspaceService service, IMapper mapper) : Co
         {
             var workspace = await service.CreateWorkspaceAsync(workspaceDto);
             var getWorkspaceDto = mapper.Map<GetWorkspaceDto>(workspace);
+            
+            var publishWorkspaceDto = mapper.Map<PublishWorkspaceDto>(getWorkspaceDto);
+            publishWorkspaceDto.Event = "Workspace_Published";
+            messageBusClient.PublishNewWorkspace(publishWorkspaceDto);
 
             return CreatedAtRoute(nameof(GetWorkspacesById), new { Id = workspace.Id }, getWorkspaceDto);
         }
