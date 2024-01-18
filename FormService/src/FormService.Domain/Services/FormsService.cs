@@ -1,13 +1,13 @@
 using AutoMapper;
 using FormService.Domain.Dtos.FormDtos;
-using FormService.Domain.Dtos.WorkspaceDtos;
+using FormService.Domain.Exceptions;
 using FormService.Domain.Interfaces;
 using FormService.Infrastructure.Context.Entities;
 using FormService.Infrastructure.Interfaces;
 
 namespace FormService.Domain.Services;
 
-public class FormsService(IMapper mapper, IFormRepository formRepository) : IFormService
+public class FormsService(IMapper mapper, IFormRepository formRepository, IWorkspaceService workspaceService) : IFormService
 {
     public async Task<IEnumerable<GetFormDto>> GetAllFormsAsync(int workspaceId)
     {
@@ -26,8 +26,14 @@ public class FormsService(IMapper mapper, IFormRepository formRepository) : IFor
 
     public async Task<GetFormDto> CreateFormAsync(int workspaceId, CreateFormDto formDto)
     {
+        var workspacesExist = await workspaceService.WorkspacesExistAsync(workspaceId);
+
+        if (!workspacesExist)
+            throw new NotFoundException($"Form with ID {workspaceId} not found");
+ 
         var formEntity = mapper.Map<Form>(formDto);
         formEntity.WorkspaceId = workspaceId;
+        
         var result = await formRepository.InsertAsync(formEntity);
 
         return mapper.Map<GetFormDto>(result);

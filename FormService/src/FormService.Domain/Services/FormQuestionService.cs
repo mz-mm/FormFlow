@@ -23,9 +23,11 @@ public class FormQuestionService(IMapper mapper, IFormQuestionsRepository formQu
             throw new NotFoundException($"Form with ID {formId} not found");
         
         var formQuestionEntity = mapper.Map<FormQuestion>(formQuestionDto);
-        var result = await formQuestionsRepository.InsertAsync(formQuestionEntity);
+        formQuestionEntity.FormId = formId;
+        
+       var result = await formQuestionsRepository.InsertAsync(formQuestionEntity);
 
-        return mapper.Map<GetFormQuestionDto>(formQuestionDto);
+        return mapper.Map<GetFormQuestionDto>(result);
     }
 
     public async Task<bool> UpdateFormQuestionAsync(int formId, CreateFormQuestionDto formQuestionDto)
