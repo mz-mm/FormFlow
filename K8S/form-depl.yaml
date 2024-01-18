@@ -21,6 +21,16 @@ spec:
                 secretKeyRef:
                   name: form-credentials
                   key: CONNECTION_STRING
+            - name: RABBITMQ_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: form-credentials
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: form-credentials
+                  key: RABBITMQ_PORT
 ---
 apiVersion: v1
 kind: Service
