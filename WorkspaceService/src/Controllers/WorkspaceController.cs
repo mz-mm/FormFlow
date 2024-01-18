@@ -15,7 +15,7 @@ public class WorkspaceController(IMessageBusClient messageBusClient, IWorkspaceS
     {
         var result = await service.GetAllWorkspacesAsync();
         if (result.Any()) return Ok(result);
-
+    
         return NotFound("No workspaces found");
     }
 
