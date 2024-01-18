@@ -6,8 +6,8 @@ using src.Services.Interfaces;
 
 namespace src.Controllers;
 
-[Route("api/workspace")]
 [ApiController]
+[Route("api/workspace")]
 public class WorkspaceController(IMessageBusClient messageBusClient, IWorkspaceService service, IMapper mapper) : ControllerBase
 {
     [HttpGet]
