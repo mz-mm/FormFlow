@@ -16,7 +16,7 @@ public class WorkspaceService(IMapper mapper, IWorkspaceRepository workspaceRepo
         return mapper.Map<IEnumerable<GetWorkspaceDto>>(workspaces);
     }
 
-    public async Task<bool> WorkspacesExist(int id)
+    public async Task<bool> WorkspacesExistAsync(int id)
     {
         var workspaces = await workspaceRepository.GetByIdAsync(id);
         return workspaces is not null;

@@ -1,3 +1,5 @@
+using FormService.Domain.AsyncDataService;
+using FormService.Domain.EventProcessing;
 using FormService.Domain.Interfaces;
 using FormService.Domain.Services;
 using FormService.Infrastructure.Context;
@@ -11,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+builder.Services.AddHostedService<MessageBusSubscriber>();
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IFormService, FormsService>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 
@@ -19,8 +25,6 @@ builder.Services.AddScoped<IFormQuestionsRepository, FormQuestionRepository>();
 
 builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING"),
