@@ -13,14 +13,14 @@ spec:
         app: formservice
     spec:
       containers:
-      - name: formservice
-        image: mzdevi/formservice:latest
-        env:
-        - name: CONNECTION_STRING
-          valueFrom: 
-            secretKeyRef:
-              name: form-credentials
-              key: CONNECTION_STRING
+        - name: formservice
+          image: mzdevi/formservice:latest
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: form-credentials
+                  key: CONNECTION_STRING
 ---
 apiVersion: v1
 kind: Service
@@ -29,9 +29,9 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: formservice 
+    app: formservice
   ports:
-  - name: formservice
-    protocol: TCP
-    port: 80
-    targetPort: 80
+    - name: formservice
+      protocol: TCP
+      port: 80
+      targetPort: 80

@@ -13,24 +13,24 @@ spec:
         app: workspaceservice
     spec:
       containers:
-      - name: workspaceservice
-        image: mzdevi/workspaceservice:latest
-        env:
-        - name: CONNECTION_STRING
-          valueFrom: 
-            secretKeyRef:
-              name: workspace-credentials
-              key: CONNECTION_STRING
-        - name: RABBITMQ_HOST
-          valueFrom: 
-            secretKeyRef:
-              name: workspace-credentials
-              key: RABBITMQ_HOST
-        - name: RABBITMQ_PORT
-          valueFrom: 
-            secretKeyRef:
-              name: workspace-credentials
-              key: RABBITMQ_PORT
+        - name: workspaceservice
+          image: mzdevi/workspaceservice:latest
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: workspace-credentials
+                  key: CONNECTION_STRING
+            - name: RABBITMQ_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: workspace-credentials
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: workspace-credentials
+                  key: RABBITMQ_PORT
 ---
 apiVersion: v1
 kind: Service
@@ -39,9 +39,9 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: workspaceservice 
+    app: workspaceservice
   ports:
-  - name: workspaceservice
-    protocol: TCP
-    port: 80
-    targetPort: 80
+    - name: workspaceservice
+      protocol: TCP
+      port: 80
+      targetPort: 80
