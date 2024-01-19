@@ -18,6 +18,6 @@ WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS=80
 EXPOSE 80
 
-COPY --from=build /src/FormService.Api/out .
+COPY --from=build /src/WorkspaceService.Api/out .
 
 ENTRYPOINT [ "dotnet", "WorkspaceService.Api.dll" ]

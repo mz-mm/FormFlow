@@ -11,10 +11,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>(x => 
+    new MessageBusClient(builder.Configuration, builder.Environment.IsProduction()));
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("WorkspacePgsqlConn")));
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+}
 
 builder.Services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService.Domain.Services.WorkspaceService>();

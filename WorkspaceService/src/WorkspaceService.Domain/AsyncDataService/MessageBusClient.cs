@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using WorkspaceService.Domain.Dtos;
 
@@ -10,12 +11,12 @@ public class MessageBusClient : IMessageBusClient
     private readonly IConnection _connection;
     private readonly IModel _channel;
 
-    public MessageBusClient()
+    public MessageBusClient(IConfiguration configuration, bool isProduction)
     {
         var factory = new ConnectionFactory()
         {
-            HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST"),
-            Port = int.Parse(Environment.GetEnvironmentVariable("RABBITMQ_PORT"))
+            HostName = isProduction ? Environment.GetEnvironmentVariable("RABBITMQ_HOST") : configuration["RabbitMQHost"],
+            Port = isProduction ? Convert.ToInt32(Environment.GetEnvironmentVariable("RABBITMQ_PORT")) : Convert.ToInt32(configuration["RabbitMQPort"])
         }; 
         try
         {
